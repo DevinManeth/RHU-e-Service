@@ -11,15 +11,15 @@
         "Good day"
       ],
       "responses": [
+        "Hello, welcome to RHU AI, How can I help you?",
         "Hey :-)",
-        "Hello, thanks for visiting",
         "Hi there, what can I do for you?",
         "Hi there, how can I help?"
       ]
     },
     {
       "tag": "goodbye",
-      "patterns": ["Bye", "See you later", "Goodbye"],
+      "patterns": ["Bye", "See you later", "Goodbye","ok"],
       "responses": [
         "See you later, thanks for visiting",
         "Have a nice day",
@@ -32,19 +32,24 @@
       "responses": ["Happy to help!", "Any time!", "My pleasure"]
     },
     {
-      "tag": "items",
+      "tag": "Service",
       "patterns": [
-        "Which items do you have?",
-        "What kinds of items are there?",
-        "What do you sell?"
+        "Which services do you have?",
+        "tell me your services?",
+        "What can you do?",
+        "What are the services you have?",
+        "what are your services?",
+        "What is RUH e-Service?",
+        "What services are available on this portal?"
+        
       ],
       "responses": [
-        "We sell coffee and tea",
-        "We have coffee and tea"
+        "We are giving following services, truecopy degree certificates, Apply Transcript and get an ideas about the job opportunities",
+        "Apply Transcript, Truecopy Degree Certificate and Job Opportunities."
       ]
     },
     {
-      "tag": "payments",
+      "tag": "Transcript",
       "patterns": [
         "Do you take credit cards?",
         "Do you accept Mastercard?",
@@ -59,28 +64,34 @@
       ]
     },
     {
-      "tag": "delivery",
+      "tag": "time",
       "patterns": [
-        "How long does delivery take?",
-        "How long does shipping take?",
-        "When do I get my delivery?"
+        "How long time get degree certificate/true copy?",
+        "How long time does it take to receive the soft copy?"
+        
+    
       ],
       "responses": [
-        "Delivery takes 2-4 days",
-        "Shipping takes 2-4 days"
+        "it takes 4-7 days",
+        "we will give within 1 week."
+        
       ]
     },
-    {
-      "tag": "funny",
+    
+     {"tag": "soft copy",
       "patterns": [
-        "Tell me a joke!",
-        "Tell me something funny!",
-        "Do you know a joke?"
+        "Can I get my transcript/degree certificate as a soft copy?",
+       "Can I get my transcript as a soft copy?",
+       "Do you provide soft copies of degree certificates?"
+        
       ],
       "responses": [
-        "Why did the hipster burn his mouth? He drank the coffee before it was cool.",
-        "What did the buffalo say when his son left for college? Bison."
+        "Yes, once your request is processed, a soft copy will be sent to your email",
+        "Yes, we deliver soft copies digitally to your registered email.",
+        "Yes, we provide soft copies of transcripts and degree certificates."
+        
       ]
     }
   ]
 }
+     

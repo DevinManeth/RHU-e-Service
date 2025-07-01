@@ -31,7 +31,6 @@ class Chatbox{
     toggleState(chatbox){
         this.state = !this.state;
 
-        //show or hide the box
         if(this.state){
                 chatbox.classList.add('chatbox--active')
         }
@@ -52,7 +51,6 @@ class Chatbox{
         let msg1 = {name: "User", message: text1}
         this.messages.push(msg1);
 
-        //http://127.0.0.1:5000/predict
         fetch($SCRIPT_ROOT + '/predict', {
             method:'POST',
             body: JSON.stringify({message: text1}),
