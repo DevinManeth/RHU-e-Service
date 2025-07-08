@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();   // ✅ Use navigate!
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const Login = () => {
 
       if (data.success) {
         alert('✅ ' + data.message);
+        navigate('/dashboard');   // ✅ Go to Dashboard on success!
       } else {
         alert('❌ ' + data.message);
       }
@@ -48,7 +51,7 @@ const Login = () => {
           onSubmit={handleLogin}
           className="bg-transparent p-6 rounded shadow-md flex flex-col space-y-4 w-96"
         >
-          <h2 className="text-lg font-bold text-black text-center">Login page</h2>
+          <h2 className="text-lg font-bold text-black text-center">Login Page</h2>
 
           <div>
             <label className="block font-bold text-black mb-1">User name :</label>
