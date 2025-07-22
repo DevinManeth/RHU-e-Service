@@ -1,13 +1,13 @@
-import background from './assets/background.jpg'
+import background from '../assets/background.jpeg';
 
-function App() {
+function LoginAs() {
   return (
     <div
       className="min-h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Top Navbar */}
-      <div className="bg-teal-800 text-white flex justify-between items-center px-6 py-4">
+      <div className="bg-teal-800 text-white flex justify-between items-center px-6 py-7">
         <h1 className="text-lg font-bold">RUH e-Service</h1>
         <div className="space-x-6 text-sm">
           <a href="#">Help Me</a>
@@ -45,4 +45,4 @@ function LoginCard({ title, icon, onClick }) {
   )
 }
 
-export default App
+export default LoginAs;

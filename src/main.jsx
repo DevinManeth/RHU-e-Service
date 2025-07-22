@@ -15,7 +15,7 @@ import LoginAs from './pages/LoginAs.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     {/* <BrowserRouter>
+     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/help" element={<Help/>} />
@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/JobOwners" element={<JobOwners/>} />
        
       </Routes>
-    </BrowserRouter> */}
+    </BrowserRouter>
 
     <LoginAs/>
   </StrictMode>,
