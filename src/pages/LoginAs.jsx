@@ -1,6 +1,7 @@
 import background from '../assets/background.jpeg';
-
+import { useNavigate } from 'react-router-dom';
 function LoginAs() {
+  const navigate = useNavigate();
   return (
     <div
       className="min-h-screen bg-cover bg-center"
@@ -12,7 +13,8 @@ function LoginAs() {
         <div className="space-x-6 text-sm">
           <a href="#">Help Me</a>
           <a href="#">About US</a>
-          <a href="#">Login</a>
+          <a href="#">Contact Us</a>
+        
         </div>
       </div>
 
@@ -21,12 +23,12 @@ function LoginAs() {
         <LoginCard
           title="Login as a Student"
           icon="🎓"
-          onClick={() => alert('Student Login')}
+          onClick={()=>{navigate('./studentlogin')}}
         />
         <LoginCard
           title="Login as a Administrator"
           icon="⚙️"
-          onClick={() => alert('Administrator Login')}
+          onClick={() => {navigate('./adminlogin')}}
         />
       </div>
     </div>
