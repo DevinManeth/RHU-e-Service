@@ -11,88 +11,59 @@ function JobOpportunitiesForm() {
           JOB OPPORTUNITIES
         </h1>
         <form className="space-y-4">
-          
           <div>
             <label className="block font-semibold mb-2">NAME</label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              className="w-full border rounded px-3 py-2"
-            />
+            <input type="text" placeholder="Enter Name" required className="w-full border rounded px-3 py-2" />
           </div>
 
-      
           <div>
-            <label className="block font-semibold mb-2">
-              REGISTRATION NUMBER
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Registration Number"
-              className="w-full border rounded px-3 py-2"
-            />
+            <label className="block font-semibold mb-2">REGISTRATION NUMBER</label>
+            <input type="text" placeholder="Enter Registration Number" required className="w-full border rounded px-3 py-2" />
           </div>
 
-          
           <div>
             <label className="block font-semibold mb-2">FACULTY</label>
-            <input
-              type="text"
-              placeholder="Enter Faculty"
-              className="w-full border rounded px-3 py-2"
-            />
+            <input type="text" placeholder="Enter Faculty" required className="w-full border rounded px-3 py-2" />
           </div>
 
-          
           <div>
             <label className="block font-semibold mb-2">GRADUATION YEAR</label>
-            <input
-              type="text"
-              placeholder="Enter Graduation Year"
-              className="w-full border rounded px-3 py-2"
-            />
+            <input type="text" placeholder="Enter Graduation Year" required className="w-full border rounded px-3 py-2" />
           </div>
 
-          
           <div>
             <label className="block font-semibold mb-2">CURRENT JOB</label>
-            <input
-              type="text"
-              placeholder="Enter Current Job"
-              className="w-full border rounded px-3 py-2"
-            />
+            <input type="text" placeholder="Enter Current Job" required className="w-full border rounded px-3 py-2" />
           </div>
 
-        
           <div>
             <label className="block font-semibold mb-2">GENDER</label>
             <div className="flex gap-4">
               <label>
-                <input type="radio" name="gender" className="mr-2" /> Male
+                <input type="radio" name="gender" required className="mr-2" /> Male
               </label>
               <label>
-                <input type="radio" name="gender" className="mr-2" /> Female
+                <input type="radio" name="gender" required className="mr-2" /> Female
               </label>
             </div>
           </div>
 
-          
           <div>
             <label className="block font-semibold mb-2">EMPLOYMENT TYPE</label>
             <div className="flex gap-4">
               <label>
-                <input type="radio" name="employmentType" className="mr-2" /> Full Time
+                <input type="radio" name="employmentType" required className="mr-2" /> Full Time
               </label>
               <label>
-                <input type="radio" name="employmentType" className="mr-2" /> Part Time
+                <input type="radio" name="employmentType" required className="mr-2" /> Part Time
               </label>
             </div>
           </div>
 
-          
           <div>
             <label className="block font-semibold mb-2">MONTHLY INCOME</label>
-            <select className="w-full border rounded px-3 py-2">
+            <select required className="w-full border rounded px-3 py-2">
+              <option value="">Select Income Range</option>
               <option value="0-50000">0-50000</option>
               <option value="50000-100000">50000-100000</option>
               <option value="100000-150000">100000-150000</option>
@@ -101,10 +72,10 @@ function JobOpportunitiesForm() {
             </select>
           </div>
 
-    
           <div>
             <label className="block font-semibold mb-2">INDUSTRY</label>
-            <select className="w-full border rounded px-3 py-2">
+            <select required className="w-full border rounded px-3 py-2">
+              <option value="">Select Industry</option>
               <option value="it">IT</option>
               <option value="healthcare">Healthcare</option>
               <option value="education">Education</option>
@@ -115,25 +86,13 @@ function JobOpportunitiesForm() {
             </select>
           </div>
 
-          
           <div className="flex justify-between">
-            <button
-              type="reset"
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-            >
-              Reset
-            </button>
-            <button
-              type="submit"
-              className="bg-teal-700 text-white px-4 py-2 rounded hover:bg-teal-800"
-            >
-              Submit
-            </button>
+            <button type="reset" className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Reset</button>
+            <button type="submit" className="bg-teal-700 text-white px-4 py-2 rounded hover:bg-teal-800">Submit</button>
           </div>
         </form>
       </div>
     </div>
-
   );
 }
 
@@ -143,11 +102,10 @@ function DashBoard() {
   return (
     <>
       <Navbar />
-      {/* Chatbot image if needed */}
-      
       <JobOpportunitiesForm />
     </>
   );
 }
 
-export default JobOpportunitiesForm;
+
+export default JobOpportunitiesForm;
