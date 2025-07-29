@@ -9,6 +9,7 @@ import Landing from './pages/Landing.jsx';
 import DashBoard from "./pages/DashBoard";
 import Login from './pages/Login.jsx';
 import AdminLogin from './pages/AdminLogin.jsx';
+import IndustryGraph from "./pages/IndustryGraph";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/ApplyTranscript" element={<ApplyTranscript/>} />
         <Route path="/Truecopy" element={<Truecopy/>} />
         <Route path="/JobOwners" element={<JobOwners/>} />
+        <Route path="/IndustryGraph" element={<IndustryGraph/>} />
       </Routes>
     </BrowserRouter>
 
