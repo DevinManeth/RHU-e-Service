@@ -24,7 +24,7 @@ const IndustryGraph = () => {
           data={data}
           dataKey="value"
           nameKey="name"
-          cx="0%"
+          cx="50%"
           cy="50%"
           outerRadius={150}
           fill="#8884d8"
