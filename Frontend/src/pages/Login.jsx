@@ -5,17 +5,18 @@ import Background from '../assets/Background.jpeg';
 import axios from 'axios';
 
 function Login() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const res = await axios.post("http://localhost:5000/api/login", {
       username,
       password
     })
+    
 
     if(res.status === 200){
       navigate("/dashboard");
