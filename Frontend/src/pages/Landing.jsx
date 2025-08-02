@@ -15,7 +15,7 @@ function Landing() {
             <a href="#" className="hover:cursor-pointer"> Help Me </a>
             <a href="#" className="hover:cursor-pointer"> About Us </a>
             <a href="#" className="hover:cursor-pointer"> Job Opportunities </a>
-            <button className="hover:cursor-pointer" onClick={()=>{navigate('./login')}}>Login</button>
+            <button className="hover:cursor-pointer" onClick={()=>{navigate('./login-as')}}>Login</button>
 
             {/* <a href="#" className="hover:cursor-pointer" onClick={(e)=>Navigate('./login')}> Login </a> */}
           </nav>
