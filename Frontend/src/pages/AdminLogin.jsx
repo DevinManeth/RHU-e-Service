@@ -90,7 +90,7 @@ function AdminLogin() {
               </div>
 
               <div className="flex justify-end">
-                <button
+                <button onClick={() => navigate('/admin-dashboard')}
                   type="submit"
                   className="bg-teal-600 text-white px-6 py-2 rounded-md 
                            hover:bg-teal-700 transition-colors duration-200 

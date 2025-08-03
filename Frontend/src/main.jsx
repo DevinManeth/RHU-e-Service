@@ -14,6 +14,8 @@ import LoginAs from './pages/LoginAs.jsx';
 import Login from './pages/Login.jsx';
 import AdminLogin from './pages/AdminLogin.jsx';
 import DashBoard from './pages/DashBoard.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
+import Chatbot from './componets/ChatBot.jsx';
 
 
 createRoot(document.getElementById('root')).render(
@@ -24,6 +26,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login-as" element={<LoginAs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/help" element={<Help/>} />
         <Route path="/OngoingActivities" element={<OngoingActivities />} />
@@ -31,6 +34,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/Truecopy" element={<Truecopy/>} />
         <Route path="/JobOwners" element={<JobOwners/>} />
       </Routes>
+      <Chatbot/>
     </BrowserRouter>
   </StrictMode>,
 )

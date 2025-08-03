@@ -12,8 +12,8 @@ function DashBoard() {
       </div>
 
       {/* Buttons */}
-      <div className="flex flex-col gap-6 pt-16 h-screen px-6 bg-[url(assets/Background.jpeg)] bg-cover "  >
-        <div className="absolute inset-0 z-10 bg-black/50 w-full "></div>
+      <div className="flex flex-col gap-6 pt-16 min-h-[88vh] px-6 bg-[url(assets/Background.jpeg)] bg-cover"  >
+        <div className="absolute inset-0 z-10 bg-black/50 w-full"></div>
 
         <div className="flex flex-col gap-4 z-10">
           <button className="bg-[#9ACBD0] hover:bg-[#8ABFC4] text-black font-semibold px-6 py-3 rounded w-92 shadow "
