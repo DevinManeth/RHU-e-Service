@@ -82,7 +82,7 @@ const DegreeCertificateRequestForm = () => {
 
         {/* NIC Upload */}
         <div className="mb-4">
-          <label className="block mb-1 text-gray-700">Upload NIC copy:</label>
+          <label className="block mb-1 text-gray-700">Upload Degree certificte copy:</label>
           <input
             type="file"
             name="nicCopy"

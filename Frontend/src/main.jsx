@@ -28,7 +28,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/dashboard" element={<DashBoard />} />
-        <Route path="/help" element={<Help/>} />
+        <Route path="/help" element={<Chatbot/>} />
         <Route path="/OngoingActivities" element={<OngoingActivities />} />
         <Route path="/ApplyTranscript" element={<ApplyTranscript/>} />
         <Route path="/Truecopy" element={<Truecopy/>} />
