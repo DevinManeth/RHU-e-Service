@@ -13,7 +13,7 @@ function Landing() {
           <h1 className="text-xl font-bold">RUH e-Service</h1>
           <nav className="space-x-6 font-semibold">
             <a href="#" className="hover:cursor-pointer"> Help Me </a>
-            <a href="#" className="hover:cursor-pointer"> About Us </a>
+            <a href="/about-us" className="hover:cursor-pointer"> About Us </a>
             <button className="hover:cursor-pointer" onClick={()=>{navigate('./IndustryGraph')}}> Job Opportunities </button>
             <button className="hover:cursor-pointer" onClick={()=>{navigate('./login-as')}}>Login</button>
 

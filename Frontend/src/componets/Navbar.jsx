@@ -10,7 +10,7 @@ function Navbar(){
             </div>
             <div className="flex-row flex gap-8 mx-10">
             <a className="hover:cursor-pointer" onClick={() => navigate('/help')}>Help Me</a>
-            <a className="hover:cursor-pointer">About Us</a>
+            <a className="hover:cursor-pointer" onClick={() => navigate('/about-us')}>About Us</a>
             </div>
             
         </div>

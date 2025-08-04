@@ -1,6 +1,7 @@
 // App.js
 import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
+import aiBotImg from '../assets/ai-bot.png'; // Import the AI bot image
 
 // Using inline SVG for the chat icon
 const ChatIcon = () => (
@@ -121,17 +122,24 @@ const Chatbot = () => {
       {!isChatOpen && (
         <button
           onClick={() => setIsChatOpen(true)}
-          className="fixed bottom-6 right-6 p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200 z-50"
+          className="fixed bottom-6 right-6 p-4 bg-blue-100 text-white rounded-full shadow-lg hover:bg-blue-300 transition-colors duration-200 z-50"
           aria-label="Open Chatbot"
         >
-          <ChatIcon />
+          {/* <ChatIcon /> */}
+
+          <img
+          src={aiBotImg}
+          alt="Chat Icon"
+          className="w-8 h-8"
+          />
+
         </button>
       )}
 
       {/* Chatbot Popup Container */}
       {isChatOpen && (
-        <div className="fixed bottom-6 right-6 w-full max-w-sm h-[70vh] md:h-[60vh] bg-white dark:bg-gray-800 rounded-2xl shadow-xl flex flex-col overflow-hidden border-4 border-white dark:border-gray-700 z-50">
-          <header className="flex items-center justify-between p-4 bg-blue-600 dark:bg-blue-700 text-white rounded-t-xl shadow-lg">
+        <div className="fixed bottom-6 right-6 w-full max-w-sm h-[70vh] md:h-[60vh] bg-white dark:bg-gray-400 rounded-2xl shadow-xl flex flex-col overflow-hidden border-4 border-white dark:border-gray-700 z-50">
+          <header className="flex items-center justify-between p-4 bg-[#006A71] text-white rounded-t-xl shadow-lg">
             <h1 className="text-xl font-bold">University Chatbot</h1>
             <button
               onClick={() => setIsChatOpen(false)}
@@ -144,7 +152,7 @@ const Chatbot = () => {
 
           <main className="flex-1 p-4 overflow-y-auto space-y-4">
             {messages.length === 0 && (
-              <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">
+              <div className="flex items-center justify-center h-full text-gray-500 dark:text-black">
                 <p className="text-center">Start a conversation with the university bot!</p>
               </div>
             )}
@@ -156,7 +164,7 @@ const Chatbot = () => {
                 <div
                   className={`max-w-[75%] p-3 rounded-2xl shadow-md ${
                     message.isUser
-                      ? 'bg-blue-500 text-white rounded-br-none'
+                      ? 'bg-[#48A6A7] text-white rounded-br-none'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-none'
                   }`}
                 >
@@ -178,17 +186,17 @@ const Chatbot = () => {
             <div ref={messagesEndRef} />
           </main>
 
-          <form onSubmit={handleSendMessage} className="flex p-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 rounded-b-2xl">
+          <form onSubmit={handleSendMessage} className="flex p-4 bg-[#006A71] border-t border-gray-200 dark:border-gray-700 rounded-b-2xl">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 p-3 rounded-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white transition-colors duration-200"
+              className="flex-1 p-3 rounded-full bg-white dark:bg-[#9ACBD0] border-2 border-gray-200  focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent text-gray-900 dark:text-black transition-colors duration-200"
               placeholder="Type your message..."
             />
             <button
               type="submit"
-              className="ml-2 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+              className="ml-2 p-3 bg-[#9ACBD0] text-white rounded-full shadow-lg hover:bg-[#48A6A7] focus:outline-none focus:ring-2 focus:ring-white transition-colors duration-200"
               disabled={isLoading}
             >
               <SendIcon />

@@ -16,6 +16,7 @@ import AdminLogin from './pages/AdminLogin.jsx';
 import DashBoard from './pages/DashBoard.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import Chatbot from './componets/ChatBot.jsx';
+import AboutUs from './pages/AboutUs.jsx';
 import IndustryGraph from "./pages/IndustryGraph";
 
 createRoot(document.getElementById('root')).render(
@@ -28,7 +29,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/dashboard" element={<DashBoard />} />
-        <Route path="/help" element={<Help/>} />
+        <Route path="/help" element={<Chatbot/>} />
+        <Route path="/about-us" element={<AboutUs/>} />
         <Route path="/OngoingActivities" element={<OngoingActivities />} />
         <Route path="/ApplyTranscript" element={<ApplyTranscript/>} />
         <Route path="/Truecopy" element={<Truecopy/>} />

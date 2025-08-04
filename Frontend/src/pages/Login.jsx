@@ -56,7 +56,7 @@ function Login() {
                 <button onClick={() => navigate('/help')} className="text-white hover:text-teal-200 transition-colors">
                   Help Me
                 </button>
-                <button onClick={() => navigate('/about')} className="text-white hover:text-teal-200 transition-colors">
+                <button onClick={() => navigate('/about-us')} className="text-white hover:text-teal-200 transition-colors">
                   About Us
                 </button>
                 

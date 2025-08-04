@@ -7,7 +7,7 @@ function ApplyTranscript() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="min-h-screen bg-gray-100 p-8">
         <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-4 border-b pb-2">
