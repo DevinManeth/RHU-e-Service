@@ -14,7 +14,7 @@ function LoginAs() {
         <h1 className="text-lg font-bold">RUH e-Service</h1>
         <div className="space-x-6 text-sm">
           <a href="#">Help Me</a>
-          <a href="#">About US</a>
+          <a href="/about-us">About Us</a>
           <a href="#">Login</a>
         </div>
       </div>
