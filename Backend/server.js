@@ -17,7 +17,7 @@ connectDB();
 
 // Login endpoint
 app.use('/api', loginRoute);
-app.use('/api', loginRoute);
+
 
 
 // Start server
