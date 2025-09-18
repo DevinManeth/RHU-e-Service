@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/connectDB');
 
 const loginRoute = require('./routes/loginRoute');
+const jobOwnerRoute = require("./routes/jobOwnerRoute");
 
 const app = express();
 const PORT = 5000;
@@ -18,7 +19,7 @@ connectDB();
 // Login endpoint
 app.use('/api', loginRoute);
 
-
+app.use("/api", jobOwnerRoute);
 
 // Start server
 app.listen(PORT, () => {

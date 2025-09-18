@@ -65,7 +65,7 @@ function ApplyTranscript() {
               How many transcript copies do you want:
               <select className="w-full border rounded p-2 mt-1" required>
                 <option value="">-- Select number of copies --</option>
-                {[...Array(10)].map((_, i) => (
+                {[...Array(5)].map((_, i) => (
                   <option key={i + 1} value={i + 1}>{i + 1}</option>
                 ))}
               </select>
