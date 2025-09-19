@@ -5,14 +5,27 @@ import Background from '../assets/uni.jpg';
 function AdminLogin() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Add admin authentication logic here
+  //   console.log('Admin login attempt:', { userName, password });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add admin authentication logic here
-    console.log('Admin login attempt:', { userName, password });
-  };
 
+    if (userName === 'admin' && password === 'admin') {
+      // ✅ correct login
+      navigate('/admin-dashboard');
+    } else {
+      // ❌ wrong login
+      setError('Invalid username or password!');
+    }
+  };
+  
   return (
     <div className="min-h-screen relative">
       {/* Background Image */}
@@ -89,8 +102,13 @@ function AdminLogin() {
                 />
               </div>
 
+              {/* Error message */}
+              {error && (
+                <p className="text-red-600 text-sm font-medium">{error}</p>
+              )}
+
               <div className="flex justify-end">
-                <button onClick={() => navigate('/admin-dashboard')}
+                <button
                   type="submit"
                   className="bg-teal-600 text-white px-6 py-2 rounded-md 
                            hover:bg-teal-700 transition-colors duration-200 

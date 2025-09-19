@@ -1,9 +1,21 @@
 import React from "react";
 import { MessageCircle } from "lucide-react"; // Notification icon
+import Background from '../assets/adminBackground.jpg';
 
 const AdminDashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-200">
+    
+    <div className="min-h-screen relative bg-gray-200">
+
+            {/* Background Image */}
+            <img
+              src={Background}
+              alt="University Campus"
+              className="absolute inset-0 w-full h-full object-cover z-0"
+            />
+           {/* Content */}
+      <div className="relative z-10"> 
+
       {/* Header */}
       <header className="bg-teal-800 text-white px-8 py-4 flex justify-between items-center">
         <h1 className="text-xl font-bold ">RUH e-Service</h1>
@@ -40,6 +52,7 @@ const AdminDashboard = () => {
         </button>
       </main>
     </div>
+  </div>
   );
 };
 
