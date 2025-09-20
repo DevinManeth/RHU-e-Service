@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
-const Info = require('../models/Info');
 
 
 exports.register = async (req, res) => {
@@ -55,15 +54,48 @@ exports.login = async (req,res) =>{
             return res.status(404).json({message:"Invalid Credentials!"});
         }
 
+        // ✅ Fix: find Info for the logged-in user
+        const userInfo = await User.findOne({ username: isUserExists.username });
+        
+        if (!userInfo) {
+            return res.status(404).json({ message: "User information not found!" });
+        }
+
         const token = jwt.sign(
-      { id: isUserExists._id, username: isUserExists.username },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' } // change expiry as needed
+          { 
+            id: isUserExists._id, 
+            username: isUserExists.username,
+            name: userInfo.name,
+            regNo: userInfo.regNo
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: '1h' }
         );
 
-        return res.status(200).json({message:"Logged in successfully!",
-        token
-         });
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: "strict",
+            maxAge: 60 * 60 * 1000
+        });
+
+        res.cookie("name", userInfo.name, {
+          httpOnly: false,
+          secure: false,
+          sameSite: 'lax',
+          path: '/',
+          maxAge: 60 * 60 * 1000
+        });
+
+        return res.status(200).json({
+          message:"Logged in successfully!",
+          user: {
+                name: userInfo.name,
+                regNo: userInfo.regNo,
+                username: isUserExists.username
+          },
+          token
+        });
         
     } catch (error) {
         console.log("Error in login[POST]:", error);
@@ -74,15 +106,11 @@ exports.login = async (req,res) =>{
 exports.dashboard = async (req, res) => {
   try {
     // username comes from JWT payload via authMiddleware
-    const userInfo = await Info.findOne({ username: req.user.username });
+    const userInfo = await User.findOne({ username: req.user.username });
 
     if (!userInfo) {
       return res.status(404).json({ message: "User info not found!" });
     }
-
-    return res.json({
-      message: `Welcome ${userInfo.name} to Ruh e Service`
-    });
   } catch (error) {
     console.log("Error in dashboard[GET]:", error);
     res.status(500).json({ message: "Internal Server Error" });

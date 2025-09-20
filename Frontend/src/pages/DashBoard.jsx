@@ -5,17 +5,6 @@ import { useNavigate } from 'react-router-dom';
 function DashBoard() {
   const navigate = useNavigate();
 
-  // const [welcomeMsg, setWelcomeMsg] = useState("");
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token"); // token saved after login
-  //   axios.get("http://localhost:5000/api/dashboard", {
-  //     headers: { Authorization: `Bearer ${token}` }
-  //   })
-  //   .then(res => setWelcomeMsg(res.data.message))
-  //   .catch(err => console.error(err));
-  // }, []);
-
   return (
     <>
       <div className="relative z-50">

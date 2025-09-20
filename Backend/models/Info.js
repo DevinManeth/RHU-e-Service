@@ -8,4 +8,4 @@ const infoSchema = new mongoose.Schema({
   degree: { type: String, required: true }
 });
 
-module.exports = mongoose.model("Info", infoSchema);
+module.exports = mongoose.model('Info', infoSchema);

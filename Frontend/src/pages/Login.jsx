@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Background from '../assets/Background.jpeg';
@@ -9,26 +8,29 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/login", {
-        username,
-        password
-      })
-      
-      if(res.status === 200){
+      const res = await axios.post(
+        "http://localhost:5000/api/login",
+        { username, password },
+        { withCredentials: true }        // <<< IMPORTANT: allow Set-Cookie (token) to stick
+      );
+
+      if (res.status === 200) {
+        // Keep JWT httpOnly in the cookie; use the body to hydrate UI:
+        // Save minimal user info for Navbar
+        localStorage.setItem("user", JSON.stringify(res.data.user)); // { name, regNo, username }
+        // (Optional) keep token too if you really need it for non-cookie APIs
+        localStorage.setItem("token", res.data.token);
+
         navigate("/dashboard");
       }
-      
     } catch (error) {
-      alert(error.response.data.message)
-      console.log("login failed",error.response.data.message)
+      const msg = error?.response?.data?.message || "Login failed";
+      alert(msg);
+      console.log("login failed:", msg);
     }
-
-
   };
 
   return (
