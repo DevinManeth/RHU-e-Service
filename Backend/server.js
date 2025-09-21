@@ -7,6 +7,7 @@ const path = require('path');
 const loginRoute = require('./routes/loginRoute');
 const jobOwnerRoute = require("./routes/jobOwnerRoute");
 const requestRoutes = require('./routes/requests.routes');
+const readRoutes = require('./routes/read.routes');
 
 const app = express();
 const PORT = 5000;
@@ -29,6 +30,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', loginRoute);
 
 app.use("/api", jobOwnerRoute);
+
+app.use('/api', readRoutes);
 
 // Start server
 app.listen(PORT, () => {
