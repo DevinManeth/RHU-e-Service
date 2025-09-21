@@ -1,8 +1,11 @@
 import React from "react";
 import { MessageCircle } from "lucide-react"; // Notification icon
 import Background from '../assets/adminBackground.jpg';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   return (
     
     <div className="min-h-screen relative bg-gray-200">
@@ -29,7 +32,8 @@ const AdminDashboard = () => {
       <main className="flex flex-col items-start space-y-6 px-20 py-16">
         {/* New Requests */}
         <div className="relative">
-          <button className="bg-[#9ACBD0] hover:bg-[#8ABFC4] text-black font-semibold px-6 py-3 rounded w-92 shadow">
+          <button className="bg-[#9ACBD0] hover:bg-[#8ABFC4] text-black font-semibold px-6 py-3 rounded w-92 shadow"
+            onClick={() => navigate('/newRequest')}>
             New Requests
           </button>
           {/* Notification Icon */}
