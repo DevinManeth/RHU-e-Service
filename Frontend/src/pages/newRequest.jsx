@@ -1,95 +1,141 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from '../componets/Navbar';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api',
+  withCredentials: true,
+});
 
 const NewRequest = () => {
-  const navigate = useNavigate();
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState('');
 
-  // Sample data - will be replaced with backend data later
-  const requests = [
-    {
-      id: '01',
-      submittedDate: '4/28/25',
-      description: 'Request Trucopy degree certificate',
-    },
-    {
-      id: '02',
-      submittedDate: '5/1/25',
-      description: 'Request Trucopy degree certificate',
-    },
-    {
-      id: '03',
-      submittedDate: '5/9/25',
-      description: 'Request transcript',
-    },
-  ];
+  useEffect(() => {
+    (async () => {
+      try {
+        // fetch ALL activities (admin view)
+        const { data } = await api.get('/activities');
+        setRows(Array.isArray(data) ? data : (data.items || []));
+      } catch (e) {
+        console.error(e);
+        setErr(e?.response?.data?.message || 'Failed to load requests');
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
-  const handleViewForm = (id) => {
-    // Will handle viewing the form
-    console.log('Viewing form for request:', id);
+  const fmt = (d) => (d ? new Date(d).toLocaleDateString() : '-');
+
+  const tableData = useMemo(
+    () =>
+      rows.map((r, idx) => ({
+        key: r.requestId || idx,
+        no: String(idx + 1).padStart(2, '0'),
+        submittedDate: fmt(r.subDate),
+        estimatedDate: fmt(r.estDate),
+        description:
+          r.desc ||
+          (r.type === 'truecopy'
+            ? 'Request Trucopy degree certificate'
+            : 'Request transcript'),
+        raw: r,
+      })),
+    [rows]
+  );
+
+  const handleViewForm = (req) => {
+    console.log('View form:', req.requestId, req.type);
   };
 
-  const handleProcess = (id) => {
-    // Will handle processing the request
-    console.log('Processing request:', id);
+  const handleProcess = (req) => {
+    console.log('Process:', req.requestId, req.type);
   };
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="bg-teal-800 text-white px-8 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold ">RUH e-Service</h1>
-        <nav className="space-x-6">
-          <a href="#" className="hover:cursor-pointer">Help Me</a>
-          <a href="#" className="hover:cursor-pointer">About Us</a>
-        </nav>
-      </header>
       
-      {/* Main Content */}
+      <header className="bg-teal-700 bg-opacity-90 text-white">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold cursor-pointer" onClick={() => navigate('/')}>
+                RUH e-Service
+              </h1>
+              <nav className="space-x-8">
+                <button 
+                  onClick={() => navigate('/help')} 
+                  className="text-white hover:text-teal-200 transition-colors"
+                >
+                  Help Me
+                </button>
+                <button 
+                  onClick={() => navigate('/about')} 
+                  className="text-white hover:text-teal-200 transition-colors"
+                >
+                  About Us
+                </button>
+                
+              </nav>
+            </div>
+          </div>
+        </header>
+
       <div className="container mx-auto px-4 py-8">
         <div className="bg-teal-700 p-6 rounded-t-lg">
           <h1 className="text-3xl font-bold text-white">Requests</h1>
         </div>
 
-        {/* Table */}
         <div className="bg-white rounded-b-lg shadow-lg overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">NO.</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">submitted date</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Description</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">View</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Click</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {requests.map((request) => (
-                  <tr key={request.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm text-gray-700">{request.id}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{request.submittedDate}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{request.description}</td>
-                    <td className="px-6 py-4">
-                      <button
-                        onClick={() => handleViewForm(request.id)}
-                        className="bg-teal-100 text-teal-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-200 transition-colors"
-                      >
-                        view form
-                      </button>
-                    </td>
-                    <td className="px-6 py-4">
-                      <button
-                        onClick={() => handleProcess(request.id)}
-                        className="bg-teal-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-700 transition-colors"
-                      >
-                        Process
-                      </button>
-                    </td>
+          {loading ? (
+            <div className="p-6">Loading…</div>
+          ) : err ? (
+            <div className="p-6 text-red-600">{err}</div>
+          ) : tableData.length === 0 ? (
+            <div className="p-6 text-gray-600">No requests found.</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">NO.</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">submitted date</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Description</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Estimated date</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">View</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Click</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {tableData.map((row) => (
+                    <tr key={row.key} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 text-sm text-gray-700">{row.no}</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{row.submittedDate}</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{row.description}</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{row.estimatedDate}</td>
+                      <td className="px-6 py-4">
+                        <button
+                          onClick={() => handleViewForm(row.raw)}
+                          className="bg-teal-100 text-teal-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-200 transition-colors"
+                        >
+                          view form
+                        </button>
+                      </td>
+                      <td className="px-6 py-4">
+                        <button
+                          onClick={() => handleProcess(row.raw)}
+                          className="bg-teal-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-700 transition-colors"
+                        >
+                          Process
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </div>
