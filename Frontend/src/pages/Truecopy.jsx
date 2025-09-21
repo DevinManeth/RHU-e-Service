@@ -1,5 +1,12 @@
 // src/componets/DegreeCertificateRequestForm.jsx
 import React, { useState } from 'react';
+// import { api } from '../api/axios';
+
+import axios from "axios";
+const api = axios.create({
+  baseURL: "http://localhost:5000/api",
+  withCredentials: true,
+});
 
 const DegreeCertificateRequestForm = () => {
   const [formData, setFormData] = useState({
@@ -10,27 +17,34 @@ const DegreeCertificateRequestForm = () => {
     graduationYear: '',
     email: '',
     contact: '',
-    nicCopy: null,
     numberOfCopies: '',
+    degreeCopy: null,       // rename nicCopy -> degreeCopy to match backend
     paymentReceipt: null,
   });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: files ? files[0] : value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: files ? files[0] : value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      form.append(key, value);
-    });
-    console.log('Form submitted:', formData);
-    // TODO: Send form to backend via fetch/axios
+    try {
+      const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
+      const username = currentUser?.username || "";
+      const fd = new FormData();
+      Object.entries(formData).forEach(([k, v]) => fd.append(k, v));
+      fd.append("username", username);
+      console.log("Form Data Entries:", ...fd); // Debug log
+      const { data } = await api.post('/truecopy/apply', fd, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      alert(`Submitted. Request ID: ${data.requestId}`);
+      // navigate('/OngoingActivities')
+    } catch (err) {
+      console.error('Submit error:', err);
+      alert(err?.response?.data?.message || 'Submit failed');
+    }
   };
 
   return (
@@ -85,7 +99,7 @@ const DegreeCertificateRequestForm = () => {
           <label className="block mb-1 text-gray-700">Upload Degree certificte copy:</label>
           <input
             type="file"
-            name="nicCopy"
+            name="degreeCopy"
             onChange={handleChange}
             className="w-full"
             accept=".pdf,.jpg,.jpeg,.png"
