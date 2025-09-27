@@ -11,7 +11,7 @@ const api = axios.create({
 function prettyStatus(s) {
   switch ((s || '').toLowerCase()) {
     case 'waiting': return { label: 'waiting', cls: 'bg-yellow-100 text-yellow-800' };
-    case 'processing': return { label: 'Ongoing', cls: 'bg-blue-100 text-blue-800' };
+    case 'processing': return { label: 'processing', cls: 'bg-blue-100 text-blue-800' };
     case 'done':
     case 'completed': return { label: 'Completed', cls: 'bg-green-100 text-green-800' };
     case 'rejected': return { label: 'Rejected', cls: 'bg-red-100 text-red-800' };
