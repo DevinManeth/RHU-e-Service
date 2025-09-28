@@ -19,4 +19,6 @@ router.patch('/activities/:requestId/status', ActivityCtrl.updateStatus);
 // Details by requestId
 router.get('/requests/:requestId', RequestCtrl.getByRequestId);
 
+
+
 module.exports = router;

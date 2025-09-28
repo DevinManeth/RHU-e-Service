@@ -1,6 +1,7 @@
 // Backend/controllers/activity.controller.js
 const Activity = require('../models/Activity');
 
+
 exports.listByUser = async (req, res) => {
   try {
     const { username, limit = 50, skip = 0 } = req.query;
