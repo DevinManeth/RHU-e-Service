@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api',
@@ -7,6 +8,8 @@ const api = axios.create({
 });
 
 const NewRequest = () => {
+
+    const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState('');
@@ -47,6 +50,7 @@ const NewRequest = () => {
 
   const handleViewForm = (req) => {
     console.log('View form:', req.requestId, req.type);
+    navigate(`/requests/${req.requestId}`);
   };
 
    const handleProcess = async (req) => {

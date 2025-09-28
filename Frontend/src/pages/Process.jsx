@@ -1,6 +1,7 @@
+// src/pages/Process.jsx
 import React, { useEffect, useMemo, useState } from 'react';
-import Navbar from '../componets/Navbar';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api',
@@ -8,14 +9,17 @@ const api = axios.create({
 });
 
 const Process = () => {
+  const navigate = useNavigate();
+
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState('');
+  const [generatingId, setGeneratingId] = useState(null);
 
   useEffect(() => {
     (async () => {
       try {
-        // only items currently processing
+        // Admin view: only items currently "processing"
         const { data } = await api.get('/activities', { params: { status: 'processing' } });
         setRows(Array.isArray(data) ? data : (data.items || []));
       } catch (e) {
@@ -35,38 +39,30 @@ const Process = () => {
         key: r.requestId || idx,
         no: String(idx + 1).padStart(2, '0'),
         submittedDate: fmt(r.subDate),
-        description: r.desc || (r.type === 'truecopy'
-          ? 'Request Trucopy degree certificate'
-          : 'Request transcript'),
+        description:
+          r.desc ||
+          (r.type === 'truecopy'
+            ? 'Request Trucopy degree certificate'
+            : 'Request transcript'),
         raw: r,
       })),
     [rows]
   );
 
-//   const handleGenerate = async (req) => {
-//     try {
-//       await api.patch(`/activities/${req.requestId}/status`, { status: 'processing' });
-//       // remove from processing list
-//       setRows((prev) => prev.filter((r) => r.requestId !== req.requestId));
-//     } catch (e) {
-//       alert(e?.response?.data?.message || 'Failed to mark as completed');
-//     }
-//   };
-
+  // Open the same details page you already use elsewhere
   const handleViewForm = (req) => {
-    console.log('View form:', req.requestId, req.type);
+    navigate(`/requests/${req.requestId}`);
   };
 
-  const [generatingId, setGeneratingId] = useState(null);
-
+  // Mark as completed -> remove from this table
   const handleGenerate = async (req) => {
     try {
-      setGeneratingId(req.requestId);                      // show red “Generated” immediately
-      await api.patch(`/activities/${req.requestId}/status`, { status: "completed" });
-      setRows((prev) => prev.filter((x) => x.requestId !== req.requestId)); // remove from Process
-      // Finished page will pick it up on next load because status is now `completed`
+      setGeneratingId(req.requestId); // show "Generated" immediately for this row
+      await api.patch(`/activities/${req.requestId}/status`, { status: 'completed' });
+      setRows((prev) => prev.filter((x) => x.requestId !== req.requestId));
+      // Finished page will display it next time it loads (status is now "completed")
     } catch (e) {
-      alert(e?.response?.data?.message || "Failed to mark as completed");
+      alert(e?.response?.data?.message || 'Failed to mark as completed');
     } finally {
       setGeneratingId(null);
     }
@@ -74,10 +70,9 @@ const Process = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      
       {/* Header */}
       <header className="bg-teal-800 text-white px-8 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold ">RUH e-Service</h1>
+        <h1 className="text-xl font-bold">RUH e-Service</h1>
         <nav className="space-x-6">
           <a href="#" className="hover:cursor-pointer">Help Me</a>
           <a href="#" className="hover:cursor-pointer">About Us</a>
@@ -124,15 +119,15 @@ const Process = () => {
                       </td>
                       <td className="px-6 py-4">
                         <button
-                            onClick={() => handleGenerate(row.raw)}
-                            disabled={generatingId === row.raw.requestId}
-                            className={
-                                generatingId === row.raw.requestId
-                                ? 'bg-red-300 text-red-900 px-4 py-2 rounded-md'
-                                : 'bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700'
-                            }
-                            >
-                            {generatingId === row.raw.requestId ? 'Generated' : 'Generate'}
+                          onClick={() => handleGenerate(row.raw)}
+                          disabled={generatingId === row.raw.requestId}
+                          className={
+                            generatingId === row.raw.requestId
+                              ? 'bg-red-300 text-red-900 px-4 py-2 rounded-md'
+                              : 'bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700'
+                          }
+                        >
+                          {generatingId === row.raw.requestId ? 'Generated' : 'Generate'}
                         </button>
                       </td>
                     </tr>

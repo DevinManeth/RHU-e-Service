@@ -20,7 +20,9 @@ import AboutUs from './pages/AboutUs.jsx';
 import IndustryGraph from "./pages/IndustryGraph";
 import NewRequest from './pages/newRequest.jsx';  
 import Process from './pages/Process.jsx';
-import Finished from './pages/Finished.jsx'; 
+import Finished from './pages/Finished.jsx';
+import RequestDetails from "./pages/RequestDetails.jsx";
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -41,7 +43,9 @@ createRoot(document.getElementById('root')).render(
         <Route path="/IndustryGraph" element={<IndustryGraph/>} />
         <Route path="/newRequest" element={<NewRequest/>} />
         <Route path="/process" element={<Process/>} />
-        <Route path="/finished" element={<Finished/>} />                                                       
+        <Route path="/finished" element={<Finished/>} />
+        <Route path="/requests/:requestId" element={<RequestDetails />} />
+                                                       
       </Routes>
       <Chatbot/>
     </BrowserRouter>
