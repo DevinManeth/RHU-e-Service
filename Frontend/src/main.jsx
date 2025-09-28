@@ -17,8 +17,10 @@ import DashBoard from './pages/DashBoard.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import Chatbot from './componets/ChatBot.jsx';
 import AboutUs from './pages/AboutUs.jsx';
-import IndustryGraph from "./pages/IndustryGraph";
-import NewRequest from './pages/newRequest.jsx';  
+
+import NewRequest from './pages/newRequest.jsx'; 
+import IndustryStats from "./pages/IndustryStats";
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -36,8 +38,9 @@ createRoot(document.getElementById('root')).render(
         <Route path="/ApplyTranscript" element={<ApplyTranscript/>} />
         <Route path="/Truecopy" element={<Truecopy/>} />
         <Route path="/JobOwners" element={<JobOwners/>} />
-        <Route path="/IndustryGraph" element={<IndustryGraph/>} />
-        <Route path="/newRequest" element={<NewRequest/>} />                                                     
+        
+        <Route path="/newRequest" element={<NewRequest/>} />
+        <Route path="/IndustryStats" element={<IndustryStats />} />                                                     
       </Routes>
       <Chatbot/>
     </BrowserRouter>
