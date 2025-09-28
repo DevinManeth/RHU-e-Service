@@ -22,7 +22,7 @@ import NewRequest from './pages/newRequest.jsx';
 import Process from './pages/Process.jsx';
 import Finished from './pages/Finished.jsx';
 import RequestDetails from "./pages/RequestDetails.jsx";
-
+import Technologies from './pages/Technologies.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -45,7 +45,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/process" element={<Process/>} />
         <Route path="/finished" element={<Finished/>} />
         <Route path="/requests/:requestId" element={<RequestDetails />} />
-                                                       
+          <Route path="/Technologies" element={<Technologies />} />                                             
       </Routes>
       <Chatbot/>
     </BrowserRouter>
