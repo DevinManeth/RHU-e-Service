@@ -33,6 +33,9 @@ app.use("/api", jobOwnerRoute);
 
 app.use('/api', readRoutes);
 
+// public/generated will hold PDFs
+app.use('/generated', express.static(path.join(__dirname, 'public', 'generated')));
+
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
