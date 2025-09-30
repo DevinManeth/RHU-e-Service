@@ -8,6 +8,7 @@ const ActivitySchema = new mongoose.Schema({
   estDate:   { type: Date },
   status:    { type: String, default: 'waiting' }, // initial status
   type:      { type: String, enum: ['transcript', 'truecopy'], required: true }
+  
 }, { timestamps: true });
 
 module.exports = mongoose.model('Activity', ActivitySchema);

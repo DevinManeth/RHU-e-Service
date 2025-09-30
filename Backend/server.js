@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/connectDB');
@@ -8,6 +9,8 @@ const loginRoute = require('./routes/loginRoute');
 const jobOwnerRoute = require("./routes/jobOwnerRoute");
 const requestRoutes = require('./routes/requests.routes');
 const readRoutes = require('./routes/read.routes');
+const resultsRoutes = require('./routes/results.routes');
+const emailRoutes = require('./routes/email.routes');
 
 const app = express();
 const PORT = 5000;
@@ -32,6 +35,11 @@ app.use('/api', loginRoute);
 app.use("/api", jobOwnerRoute);
 
 app.use('/api', readRoutes);
+
+app.use('/api', resultsRoutes);
+
+// Email API
+app.use('/api/email', emailRoutes);
 
 // public/generated will hold PDFs
 app.use('/generated', express.static(path.join(__dirname, 'public', 'generated')));

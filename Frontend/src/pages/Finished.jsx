@@ -1,4 +1,3 @@
-// src/pages/Finished.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
@@ -16,7 +15,7 @@ export default function Finished() {
     (async () => {
       try {
         const { data } = await api.get("/activities", { params: { status: "completed" } });
-        setRows(Array.isArray(data) ? data : (data.items || []));
+        setRows(Array.isArray(data) ? data : data.items || []);
       } catch (e) {
         setErr(e?.response?.data?.message || "Failed to load finished activities");
       } finally {
@@ -25,24 +24,26 @@ export default function Finished() {
     })();
   }, []);
 
-  const table = useMemo(
-    () =>
-      rows.map((r, i) => ({
-        key: r.requestId || i,
-        no: String(i + 1).padStart(2, "0"),
-        submittedDate: r.subDate ? new Date(r.subDate).toLocaleDateString() : "-",
-        description: r.desc || (r.type === "truecopy"
-          ? "Request Trucopy degree certificate"
-          : "Request transcript"),
-        raw: r,
-      })),
-    [rows]
-  );
-
-  const handleSendEmail = (req) => {
-    // TODO: hook into your email flow
-    alert(`Pretend sending email for request ${req.requestId}`);
+  const handleSendEmail = async (req) => {
+    try {
+      const res = await api.post('/email/send', { requestId: req.requestId });
+      const preview = res?.data?.preview;
+      alert(preview ? `Email sent (Ethereal preview): ${preview}` : 'Email sent successfully');
+    } catch (e) {
+      console.error('Failed sending email', e);
+      alert(e?.response?.data?.message || 'Failed to send email');
+    }
   };
+
+  const table = useMemo(() => rows.map((r, i) => ({
+    key: r.requestId || i,
+    no: String(i + 1).padStart(2, "0"),
+    submittedDate: r.subDate ? new Date(r.subDate).toLocaleDateString() : "-",
+    description: r.desc || (r.type === "truecopy"
+      ? "Request Truecopy degree certificate"
+      : "Request transcript"),
+    raw: r,
+  })), [rows]);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -64,7 +65,7 @@ export default function Finished() {
                 <thead className="bg-gray-100">
                   <tr>
                     <th className="px-6 py-4 text-left">NO.</th>
-                    <th className="px-6 py-4 text-left">submitted date</th>
+                    <th className="px-6 py-4 text-left">Submitted Date</th>
                     <th className="px-6 py-4 text-left">Description</th>
                     <th className="px-6 py-4 text-left">Send</th>
                   </tr>
